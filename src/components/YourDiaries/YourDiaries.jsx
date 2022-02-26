@@ -38,7 +38,7 @@ const dummyData = [
 const headings = ['Title', 'Content', 'Written Date', 'Status'];
 
 const YourDiaries = () => {
-  const { user, allDiaries, setAllDiaries } = useContext(AuthContext);
+  const { user, setUser, allDiaries, setAllDiaries } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleRowClick = (id) => {
     console.log(id);
@@ -48,6 +48,34 @@ const YourDiaries = () => {
     // Guard clause
     if (!user) return;
 
+    const getNewAccessToken = async (refresh) => {
+      try {
+        var myHeaders = new Headers();
+        myHeaders.append('Authorization', 'Basic Og==');
+        myHeaders.append('Content-Type', 'application/json');
+        var raw = JSON.stringify({
+          refresh: user.refreshToken,
+        });
+        var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow',
+        };
+        let res = await fetch(
+          'https://mental-diaries.herokuapp.com/api/users/login/refresh/',
+          requestOptions
+        );
+        const resJson = await res.json();
+        localStorage.setItem('accessToken', resJson.access);
+        setUser((prev) => ({
+          ...prev,
+          accessToken: resJson.access,
+        }));
+      } catch (err) {
+        console.log(err);
+      }
+    };
     // NOTE: User is there meaning, both tokens are in the user context
     // fetch
     const getData = async (url = '') => {
@@ -62,8 +90,10 @@ const YourDiaries = () => {
           referrerPolicy: 'no-referrer',
         };
         let res = await fetch(url, requestOptions);
+        if (res.status == 401) {
+          getNewAccessToken(user.refreshToken);
+        }
         const resJson = await res.json();
-        if (resJson.code === 'token_not_valid') throw new Error(resJson.code);
 
         // If resJson is successful
         console.log(resJson);
@@ -75,7 +105,7 @@ const YourDiaries = () => {
     getData(
       `https://mental-diaries.herokuapp.com/api/diary/entry/?username=${user.username}`
     );
-  }, []);
+  }, [user]);
   return (
     <div className="diary__table">
       <div className="diary__table--row table__heading">

@@ -17,14 +17,14 @@ function App() {
   /* 
     1. Sign up <DONE>
     2. Login Form <DONE>
-    3. Post Diary IF posted, then a success snackbar should appear.
-
-    4. Retrieve All Diary and save it in a context
+    3. Post Diary IF posted, then a success snackbar should appear. <DONE>
+    4. Retrieve All Diary and save it in a context <DONE>
     5. Chart.js
     6. Appointment
     7. Sign Out NOTE: Destroy localStorage, set User to null
+    8. get new access tokens using refresh tokens and set it inside localStorage
   */
-
+  
   useEffect(() => {}, []);
   return (
     <div className="App">

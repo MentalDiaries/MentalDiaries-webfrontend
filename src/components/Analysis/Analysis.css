@@ -1,0 +1,5 @@
+.analysis__line {
+  padding: 2rem;
+  border-radius: 0.5rem;
+  background-color: var(--white);
+}

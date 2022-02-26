@@ -45,7 +45,9 @@ const Post = () => {
   return (
     <div className="diary__content">
       <div className="heading__container">
-        <h1 className="primary__heading">Hi, {user ? user.username : null}</h1>
+        <h1 className="primary__heading">
+          Hi, {user ? user.username.toUpperCase() : null}
+        </h1>
         <h1 className="primary__heading">{date}</h1>
       </div>
       <form className="input__container" onSubmit={handleDiarySubmit}>
