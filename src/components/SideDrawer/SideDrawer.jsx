@@ -24,9 +24,12 @@ export default function SideDrawer() {
     <nav className="drawer">
       <ul className="drawer__list">
         {drawerItemList.map((item, index) => (
-          <li
+          <a
             key={index}
             className="drawer__item"
+            onFocus={(e) => {
+              console.log('focused');
+            }}
             onClick={(e) => {
               handleNavigation(e, item.path);
             }}
@@ -35,7 +38,7 @@ export default function SideDrawer() {
               {item.icon}
             </span>
             <p className="drawer__item--text">{item.text}</p>
-          </li>
+          </a>
         ))}
       </ul>
     </nav>

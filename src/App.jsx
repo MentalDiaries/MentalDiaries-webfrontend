@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import './globalCss/App.css';
 import './globalCss/var.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -13,6 +13,8 @@ import Login from './components/Login/Login';
 
 function App() {
   const user = useContext(AuthContext);
+
+  useEffect(() => {}, []);
   return (
     <div className="App">
       <Router>
@@ -25,8 +27,8 @@ function App() {
             <Route path="/appointments" element={<Appointments />} />
           </Route>
         </Routes>
+        {!user && <Login />}
       </Router>
-      {!user && <Login />}
     </div>
   );
 }
