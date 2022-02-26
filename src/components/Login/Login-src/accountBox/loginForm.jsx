@@ -59,16 +59,10 @@ export function LoginForm(props) {
         <Input type="password" placeholder="Password" />
         <Marginer direction="vertical" margin={10} />
         <Marginer direction="vertical" margin="1.6em" />
-<<<<<<< HEAD
         <SubmitButton type="submit" onClick={handleSubmit}>
           Sign in
         </SubmitButton>
       </FormContainer>
-=======
-        <SubmitButton type="submit">Sign in</SubmitButton>
-      </FormContainer>
-      
->>>>>>> d49a380a3943a7246d9d6b4427f9420efadff3f7
       <Marginer direction="vertical" margin="1em" />
       <MutedLink href="#">Don't have an account </MutedLink>
       <BoldLink href="#" onClick={switchToSignup}>
