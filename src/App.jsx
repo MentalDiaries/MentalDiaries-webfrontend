@@ -17,7 +17,6 @@ function App() {
     <div className="App">
       <Router>
         <SideDrawer />
-        {user && <Login />}
         <Routes>
           <Route path="/" element={<Dashboard />}>
             <Route index element={<Post />} />
@@ -27,6 +26,7 @@ function App() {
           </Route>
         </Routes>
       </Router>
+      {!user && <Login />}
     </div>
   );
 }

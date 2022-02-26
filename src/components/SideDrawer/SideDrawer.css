@@ -13,7 +13,7 @@
   row-gap: 3rem;
 }
 .drawer__item {
-  transition: all 250ms ease-in;
+  transition: all 150ms ease-in;
   cursor: pointer;
   align-items: center;
   padding: 1rem 2rem;
@@ -27,7 +27,9 @@
   column-gap: 2.5rem;
 }
 .drawer__item:hover {
-  background-color: var(--black);
+  background-color: #fc5296;
+  background-image:
+   linear-gradient(315deg, #fc5296 0%, #f67062 74%); 
   color: #ffffff;
   box-shadow: 0 0 0.9rem var(--box-shadow);
 }

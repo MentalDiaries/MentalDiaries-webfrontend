@@ -29,8 +29,8 @@ export function SignupForm(props) {
     
   // };
   // const handleSubmit = async (e) => {
-  //   if(cnfPassword===password){
   //     e.preventDefault();
+  //   if(cnfPassword===password){
   //     try {
   //       let res = await fetch("", {
   //         method: "POST",
