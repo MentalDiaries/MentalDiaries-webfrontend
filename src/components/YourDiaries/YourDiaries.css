@@ -1,0 +1,38 @@
+.diary__table {
+  background-color: var(--white);
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+
+  padding: 0 2rem 2rem 2rem;
+}
+.table__heading {
+  font-size: 2rem;
+  color: var(--light-gray);
+  font-weight: 500;
+  border: none;
+}
+
+.cell__title {
+  font-weight: 500;
+}
+.diary__table--row:hover {
+  cursor: pointer;
+}
+.diary__table--row:first-child {
+}
+.diary__table--row {
+  font-size: 1.6rem;
+  text-align: left;
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 0.1rem solid var(--table-heading);
+}
+
+.diary__table--cell {
+  flex: 1;
+  display: flex;
+  column-gap: 2rem;
+  align-items: center;
+  padding: 2rem;
+}

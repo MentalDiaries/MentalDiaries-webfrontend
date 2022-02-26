@@ -1,45 +1,34 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import { useState, useContext } from 'react';
+import './globalCss/App.css';
+import './globalCss/var.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Dashboard from './components/Dashboard/Dashboard';
+import SideDrawer from './components/SideDrawer/SideDrawer';
+import YourDiaries from './components/YourDiaries/YourDiaries';
+import Analysis from './components/Analysis/Analysis';
+import Appointments from './components/Appointments/Appointments';
+import Post from './components/Post/Post';
+import { AuthContext } from './AuthProvider';
+import Login from './components/Login/Login';
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const user = useContext(AuthContext);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+      <Router>
+        <SideDrawer />
+        {user && <Login />}
+        <Routes>
+          <Route path="/" element={<Dashboard />}>
+            <Route index element={<Post />} />
+            <Route path="/your-diaries" element={<YourDiaries />} />
+            <Route path="/analysis" element={<Analysis />} />
+            <Route path="/appointments" element={<Appointments />} />
+          </Route>
+        </Routes>
+      </Router>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

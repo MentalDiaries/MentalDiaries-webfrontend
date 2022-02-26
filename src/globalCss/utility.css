@@ -1,0 +1,44 @@
+@import './var.css';
+
+.primary__heading {
+  font-size: 2.8rem;
+  color: var(--dark-green);
+}
+
+.secondary__heading {
+  font-size: 2.4rem;
+  color: var(--dark-green);
+}
+.input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--white);
+  padding: 1rem 2.5rem;
+  border-radius: 0.5rem;
+  grid-row-start: auto;
+  grid-column-start: auto;
+  transition: all 250ms ease-in;
+  box-shadow: 0 0 0.5rem var(--light-gray);
+}
+.input:hover {
+  transform: translateY(-0.2rem);
+  cursor: pointer;
+  box-shadow: 0 0 1rem var(--light-gray);
+}
+.input__label {
+  font-size: 2.4rem;
+  font-weight: 500;
+}
+.input__box {
+  width: 100%;
+  border: none;
+  font-size: 2rem;
+  border-radius: 0.5rem;
+  background-color: var(--lighter-gray);
+  padding: 1rem;
+}
+.input__box:focus {
+  outline: none;
+}
