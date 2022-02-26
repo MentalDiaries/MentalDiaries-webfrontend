@@ -11,9 +11,10 @@ import {
 } from './common';
 import { Marginer } from '../marginer';
 import { AuthContext } from '../../../../AuthProvider';
-
+import { AccountContext } from './accountContext';
 export function SignupForm(props) {
   const { setUser } = useContext(AuthContext);
+  const { switchToSignin } = useContext(AccountContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [cnfPassword, setCnfPassword] = useState('');
@@ -22,34 +23,43 @@ export function SignupForm(props) {
   let handleSubmit = async (e) => {
     if (cnfPassword === password) {
       try {
-        let res = await fetch('', {
-          method: 'POST',
-          
-          body: JSON.stringify({
-            username: username,
-            password: password,
-          }),
-        });
-        let resJson = await res.json();
+        const myHeaders = new Headers();
+        myHeaders.append('Content-Type', 'application/json');
 
+        let res = await fetch(
+          'https://mental-diaries.herokuapp.com/api/users/register/',
+          {
+            method: 'POST',
+            headers: myHeaders,
+            body: JSON.stringify({
+              username: username,
+              password: password,
+            }),
+          }
+        );
+        let resJson = await res.json();
+        setMessage(resJson.Status);
+        if (resJson.Status === 'Failure... User already registered')
+          throw new Error("'Failure... User already registered'");
+        console.log(resJson);
         // NOTE: Successful
-        if (resJson.status === 201) {
-          localStorage.setItem('username', username);
-          localStorage.setItem('refreshToken', resJson.data.refresh);
-          localStorage.setItem('accessToken', resJson.data.access);
-          setUser({
-            username: username,
-            refreshToken: resJson.data.refresh,
-            accessToken: resJson.data.access,
-          });
-          setUsername('');
-          setPassword('');
-          setCnfPassword('');
-        } else if (resJson.status === 405) {
-          setMessage('User Already Registered');
-        } else {
-          setMessage('Some error occurred');
-        }
+        // if (resJson.status === 201) {
+        //   localStorage.setItem('username', username);
+        //   localStorage.setItem('refreshToken', resJson.data.refresh);
+        //   localStorage.setItem('accessToken', resJson.data.access);
+        //   setUser({
+        //     username: username,
+        //     refreshToken: resJson.data.refresh,
+        //     accessToken: resJson.data.access,
+        //   });
+        //   setUsername('');
+        //   setPassword('');
+        //   setCnfPassword('');
+        // } else if (resJson.status === 405) {
+        //   setMessage('User Already Registered');
+        // } else {
+        //   setMessage('Some error occurred');
+        // }
       } catch (err) {
         console.log(err);
       }
@@ -91,6 +101,7 @@ export function SignupForm(props) {
           Sign in
         </BoldLink>
       </MutedLink>
+      <Marginer direction="vertical" margin={10} />
       <Message>{message ? <p>{message}</p> : null}</Message>
     </BoxContainer>
   );

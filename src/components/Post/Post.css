@@ -7,7 +7,8 @@
 }
 
 .heading__container {
-  text-align: right;
+  display: flex;
+  justify-content: space-between;
 }
 .input__container {
   align-items: flex-end;

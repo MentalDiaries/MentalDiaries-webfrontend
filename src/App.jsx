@@ -12,7 +12,18 @@ import { AuthContext } from './AuthProvider';
 import Login from './components/Login/Login';
 
 function App() {
-  const user = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
+  // TODO:
+  /* 
+    1. Sign up <DONE>
+    2. Login Form <DONE>
+    3. Post Diary IF posted, then a success snackbar should appear.
+
+    4. Retrieve All Diary and save it in a context
+    5. Chart.js
+    6. Appointment
+    7. Sign Out NOTE: Destroy localStorage, set User to null
+  */
 
   useEffect(() => {}, []);
   return (
@@ -23,6 +34,7 @@ function App() {
           <Route path="/" element={<Dashboard />}>
             <Route index element={<Post />} />
             <Route path="/your-diaries" element={<YourDiaries />} />
+            <Route path="/your-diaries/:diaryId" element={<Analysis />} />
             <Route path="/analysis" element={<Analysis />} />
             <Route path="/appointments" element={<Appointments />} />
           </Route>

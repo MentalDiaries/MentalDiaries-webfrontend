@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   BoldLink,
   BoxContainer,
@@ -6,17 +6,15 @@ import {
   Input,
   MutedLink,
   SubmitButton,
+  Message,
 } from './common';
 import { Marginer } from '../marginer';
 import { AccountContext } from './accountContext';
-
-
-
-
+import { AuthContext } from '../../../../AuthProvider';
 
 export function LoginForm(props) {
   const { switchToSignup } = useContext(AccountContext);
-
+  const { user, setUser } = useContext(AuthContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -25,29 +23,41 @@ export function LoginForm(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let res = await fetch('', {
-        method: 'POST',
-        body: JSON.stringify({
-          username: username,
-          password: password,
-        }),
-      });
+      const myHeaders = new Headers();
+      myHeaders.append('Content-Type', 'application/json');
+      console.log('username: ', username, 'password: ', password);
+      let res = await fetch(
+        'https://mental-diaries.herokuapp.com/api/users/login/',
+        {
+          method: 'POST',
+          headers: myHeaders,
+          body: JSON.stringify({
+            username: username,
+            password: password,
+          }),
+        }
+      );
       let resJson = await res.json();
-      if (resJson.status === 201) {
-        localStorage.setItem('username', username);
-        localStorage.setItem('refreshToken', resJson.data.refresh);
-        localStorage.setItem('accessToken', resJson.data.access);
-        setUser({
-          username: username,
-          refreshToken: resJson.data.refresh,
-          accessToken: resJson.data.access,
-        });
-        setUsername('');
-        setPassword('');
-      } else if (resJson.status === 500) {
-        setMessage('Some error occured');
+      if (
+        resJson.detail === 'No active account found with the given credentials'
+      ) {
+        setMessage(resJson.detail);
+        throw new Error('No active account found with the given credentials');
       }
-      setRedirect(true);
+
+      // NOTE: User Exists
+      localStorage.setItem('username', username);
+      localStorage.setItem('refreshToken', resJson.refresh);
+      localStorage.setItem('accessToken', resJson.access);
+
+      // Context
+      setUser({
+        username: username,
+        refreshToken: resJson.refresh,
+        accessToken: resJson.access,
+      });
+      setUsername('');
+      setPassword('');
     } catch (err) {
       console.log(err);
     }
@@ -55,8 +65,18 @@ export function LoginForm(props) {
   return (
     <BoxContainer>
       <FormContainer onSubmit={handleSubmit}>
-        <Input type="text" placeholder="username" />
-        <Input type="password" placeholder="Password" />
+        <Input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="username"
+        />
+        <Input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+        />
         <Marginer direction="vertical" margin={10} />
         <Marginer direction="vertical" margin="1.6em" />
         <SubmitButton type="submit" onClick={handleSubmit}>
@@ -68,6 +88,8 @@ export function LoginForm(props) {
       <BoldLink href="#" onClick={switchToSignup}>
         Sign up
       </BoldLink>
+      <Marginer direction="vertical" margin={10} />
+      <Message>{message ? <p>{message}</p> : null}</Message>
     </BoxContainer>
   );
 }
