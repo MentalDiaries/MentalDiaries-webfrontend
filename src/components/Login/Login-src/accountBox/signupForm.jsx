@@ -92,7 +92,6 @@ export function SignupForm(props) {
         </BoldLink>
       </MutedLink>
       <Message>{message ? <p>{message}</p> : null}</Message>
-      {/* <div className="message">{message ? <p>{message}</p> : null}</div> */}
     </BoxContainer>
   );
 }
