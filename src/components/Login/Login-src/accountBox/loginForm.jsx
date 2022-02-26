@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React, { useContext,  } from "react";
+import { Navigate } from "react-router-dom";
 import {
   BoldLink,
   BoxContainer,
@@ -10,18 +11,53 @@ import {
 import { Marginer } from "../marginer";
 import { AccountContext } from "./accountContext";
 
+
+
+
+
 export function LoginForm(props) {
   const { switchToSignup } = useContext(AccountContext);
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [redirect, setRedirect] = useState(false);
+  
+    // try {
+      //   let res = await fetch("", {
+      //     method: "POST",
+      //     body: JSON.stringify({
+      //       username: username,
+      //       password: password,
+      //     }),
+      //   });
+      //   let resJson = await res.json();
+      //   if (resJson.status === 201) {
+      //     setUsername("");
+      //     setPassword("");
+      //   } else if(resJson.status ===500){
+      //     setMessage("Some error occured");
+      //   }
+      //   setRedirect(true);
+      // } catch (err) {
+      //   console.log(err);
+      // }
+      
+      if(redirect){
+        <Navigate replace to = "/" />
+      }
+ 
 
   return (
     <BoxContainer>
       <FormContainer>
         <Input type="text" placeholder="username" />
         <Input type="password" placeholder="Password" />
+        <Marginer direction="vertical" margin={10} />
+        <Marginer direction="vertical" margin="1.6em" />
+        <SubmitButton type="submit">Sign in</SubmitButton>
       </FormContainer>
-      <Marginer direction="vertical" margin={10} />
-      <Marginer direction="vertical" margin="1.6em" />
-      <SubmitButton type="submit">Sign in</SubmitButton>
+      
       <Marginer direction="vertical" margin="1em" />
       <MutedLink href="#">
         Don't have an account{" "}
