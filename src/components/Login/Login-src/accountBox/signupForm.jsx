@@ -1,5 +1,5 @@
 import React, { useContext , useState, SyntheticEvent} from "react";
-
+import { Routes, Route, Navigate } from "react-router-dom";
 import {
   BoldLink,
   BoxContainer,
@@ -22,48 +22,51 @@ export function SignupForm(props) {
   const [cnfPassword, setCnfPassword] = useState("");
   const [message, setMessage] = useState("");
   const [redirect, setRedirect] = useState(false);
+  const [access, setAccess] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
-
-
-  // let handleSubmit = async (e) => {
+ 
+  let handleSubmit = async (e) => {
+    if(cnfPassword===password){
+      
     
-  // };
-  // const handleSubmit = async (e) => {
-  //     e.preventDefault();
-  //   if(cnfPassword===password){
-  //     try {
-  //       let res = await fetch("", {
-  //         method: "POST",
-  //         body: JSON.stringify({
-  //           name: name,
-  //           username: username,
-  //           password: password,
-  //           cnfPassword: cnfPassword,
-  //         }),
-  //       });
-  //       let resJson = await res.json();
-  //       if (resJson.status === 201) {
-  //         setUsername("");
-  //         setPassword("");
-  //         setCnfPassword("");
-  //         return <Redirect></Redirect>
-  //       } else {
-  //         setMessage("Some error occured");
-  //       }
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   }else{
-  //     setMessage("Confirm password is not same as entered password!!");
-  //   }
-  // }
-
+      // try {
+      //   let res = await fetch("", {
+      //     method: "POST",
+      //     body: JSON.stringify({
+      //       username: username,
+      //       password: password,
+      //     }),
+      //   });
+      //   let resJson = await res.json();
+      //   if (resJson.status === 201) {
+      //     setUsername("");
+      //     setPassword("");
+      //     setCnfPassword("");
+      //     setRefresh(resJson.refresh);
+      //     setAccess(resJson.access);
+      //   } else if(resJson.status === 405){
+      //     setMessage("User Already Registered");
+      //   }else{ 
+      //      setMessage("Some error occurred");
+      //   }
+      // } catch (err) {
+      //   console.log(err);
+      // }
+      setRedirect(true);
+    }else{
+      setMessage("Confirm password is not same as entered password!!");
+    }
+  }
+  if(redirect){
+    switchToSignin()
+  }
   return (
     <BoxContainer>
-      <FormContainer>
-        <Input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-        <Input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        <Input type="password" placeholder="Confirm Password" value={cnfPassword} onChange={(e) => setCnfPassword(e.target.value)} />
+      <FormContainer onSubmit={handleSubmit}>
+        <Input type="text" placeholder="Username" required value={username} onChange={(e) => setUsername(e.target.value)} />
+        <Input type="password" placeholder="Password" required value={password} onChange={(e) => setPassword(e.target.value)} />
+        <Input type="password" placeholder="Confirm Password" required value={cnfPassword} onChange={(e) => setCnfPassword(e.target.value)} />
         <Marginer direction="vertical" margin={10} />
         <SubmitButton type="submit">Sign up</SubmitButton>
       </FormContainer>
@@ -76,7 +79,6 @@ export function SignupForm(props) {
         </BoldLink>
       </MutedLink>
       <Message>{message ? <p>{message}</p> : null}</Message>
-      {/* <div className="message">{message ? <p>{message}</p> : null}</div> */}
     </BoxContainer>
   );
 }
