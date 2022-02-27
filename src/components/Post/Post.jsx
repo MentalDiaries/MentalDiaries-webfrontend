@@ -8,10 +8,11 @@ const Post = () => {
     month: 'long',
     year: 'numeric',
   });
+
   const handleDiarySubmit = (e) => {
     e.preventDefault();
     const postData = async (url = '', data = {}) => {
-      const response = await fetch(url, {
+      let res = await fetch(url, {
         method: 'POST',
         mode: 'no-cors',
         cache: 'no-cache',
@@ -30,7 +31,11 @@ const Post = () => {
       title,
       content,
     })
-      .then((data) => console.log(data))
+      .then((data) => {
+        setContent('');
+        setTitle('');
+        console.log(data);
+      })
       .catch((err) => err.message);
     console.log(title, content);
   };

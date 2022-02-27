@@ -5,9 +5,18 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     // TODO: Auth logic
+    const username = localStorage.getItem('username');
+    if (!username) return;
+    refreshToken = localStorage.getItem('refreshToken');
+    accessToken = localStorage.getItem('accessToken');
+    setUser({ username, refreshToken, accessToken });
     //  IF user session or not
   }, []);
-  return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={(user, setUser)}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;

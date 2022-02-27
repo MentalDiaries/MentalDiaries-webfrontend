@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../AuthProvider';
 import './YourDiaries.css';
 const dummyData = [
   {
@@ -34,8 +35,42 @@ const dummyData = [
 ];
 
 const headings = ['Title', 'Content', 'Written Date', 'Status'];
+
 const YourDiaries = () => {
-  const handleRowClick = (e) => {};
+  const { user } = useContext(AuthContext);
+  const [allDiaries, setAllDiaries] = useState([]);
+  const handleRowClick = (id) => {
+    console.log(id);
+  };
+  useEffect(() => {
+    if (!user) return;
+
+    // NOTE: User is there meaning, both tokens are in the user context
+    // fetch
+    const postData = async (url = '', data = {}) => {
+      const myHeaders = new Headers();
+      myHeaders.append('Authorization', `Bearer ${user.accessToken}`);
+
+      const requestOptions = {
+        method: 'GET',
+        mode: 'no-cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: myHeaders,
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(data),
+      };
+      let res = await fetch(url, requestOptions);
+      return response.json();
+    };
+
+    postData('https://example.com/answer')
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => err.message);
+  }, [user]);
   return (
     <div className="diary__table">
       <div className="diary__table--row table__heading">
@@ -46,7 +81,13 @@ const YourDiaries = () => {
         ))}
       </div>
       {dummyData.map((row, index) => (
-        <div className="diary__table--row" key={index}>
+        <div
+          className="diary__table--row"
+          key={index}
+          onClick={(e) => {
+            handleRowClick(row.id);
+          }}
+        >
           <div className="diary__table--cell cell__title">
             {row.title.slice(1, 40)}
           </div>
@@ -57,7 +98,7 @@ const YourDiaries = () => {
             {row.status === 'Depressed' ? (
               <span class="material-icons">sentiment_dissatisfied</span>
             ) : (
-              <span class="material-icons">sentiment_very_satisfied</span>
+              <span className="material-icons">sentiment_very_satisfied</span>
             )}
 
             <span>{row.status}</span>
