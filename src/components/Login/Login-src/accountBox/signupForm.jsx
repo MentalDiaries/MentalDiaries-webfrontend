@@ -43,8 +43,8 @@ export function SignupForm(props) {
       //     setUsername("");
       //     setPassword("");
       //     setCnfPassword("");
-      //     setRefresh(resJson.refresh);
-      //     setAccess(resJson.access);
+      //     setRefresh(resJson.data.refresh);
+      //     setAccess(resJson.data.access);
       //   } else if(resJson.status === 405){
       //     setMessage("User Already Registered");
       //   }else{ 

@@ -17,9 +17,9 @@ const Navigation = () => {
       <h3 className='name'>Rohit Jaiswal<br /><span>Meta Data</span></h3>
           <ul>
              <li><img src = {profileImg} /><a href = "#">Profile</a></li>
-             <li><img src = {profileImg} /><a href = "#">Profile</a></li>
-             <li><img src = {profileImg} /><a href = "#">Profile</a></li>
-             <li><img src = {profileImg} /><a href = "#">Profile</a></li>
+             <li><img src = {profileImg} /><a href = "#">Tour Diaries</a></li>
+             <li><img src = {profileImg} /><a href = "#">Your Progress</a></li>
+             <li><img src = {profileImg} /><a href = "#">About Us</a></li>
              <li><img src = {profileImg} /><a href = "#">Profile</a></li>
              <li><img src = {profileImg} /><a href = "#">Profile</a></li>
           </ul>

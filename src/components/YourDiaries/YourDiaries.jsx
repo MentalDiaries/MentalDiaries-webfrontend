@@ -7,7 +7,7 @@ const dummyData = [
       'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia deserunt at ea assumenda. Inventore, eius, iure at numquam eveniet nesciunt excepturi alias non quaerat sequi aliquid culpa?',
     content:
       'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore facilis quos cupiditate vero dolores ad, dolorum dignissimos aperiam! Iusto repudiandae nulla incidunt similique quia, voluptatum reiciendis quas tenetur praesentium amet eligendi unde animi ipsum ex laboriosam. Facilis ipsam quod laborum praesentium totam sunt in iusto. Fugit aperiam temporibus natus ad?',
-    status: 'suicide',
+    status: 'Depressed',
     date: new Date().toISOString(),
     color: '#eb4f17',
   },
@@ -17,7 +17,7 @@ const dummyData = [
       'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia deserunt at ea assumenda. Inventore, eius, iure at numquam eveniet nesciunt excepturi alias non quaerat sequi aliquid culpa?',
     content:
       'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore facilis quos cupiditate vero dolores ad, dolorum dignissimos aperiam! Iusto repudiandae nulla incidunt similique quia, voluptatum reiciendis quas tenetur praesentium amet eligendi unde animi ipsum ex laboriosam. Facilis ipsam quod laborum praesentium totam sunt in iusto. Fugit aperiam temporibus natus ad?',
-    status: 'suicide',
+    status: 'Depressed',
     date: new Date().toISOString(),
     color: '#eb4f17',
   },
@@ -28,7 +28,7 @@ const dummyData = [
     content:
       'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore facilis quos cupiditate vero dolores ad, dolorum dignissimos aperiam! Iusto repudiandae nulla incidunt similique quia, voluptatum reiciendis quas tenetur praesentium amet eligendi unde animi ipsum ex laboriosam. Facilis ipsam quod laborum praesentium totam sunt in iusto. Fugit aperiam temporibus natus ad?',
     date: new Date().toISOString(),
-    status: 'no suicide',
+    status: 'Cheerfull',
     color: '#1de9b6',
   },
 ];
@@ -54,7 +54,7 @@ const YourDiaries = () => {
           <div className="diary__table--cell">{row.date}</div>
 
           <div className="diary__table--cell" style={{ color: row.color }}>
-            {row.status === 'suicide' ? (
+            {row.status === 'Depressed' ? (
               <span class="material-icons">sentiment_dissatisfied</span>
             ) : (
               <span class="material-icons">sentiment_very_satisfied</span>
